@@ -1,52 +1,125 @@
-# 安装教程
-`pip install uv`
-`uv sync`
+# MCP 示例项目教程
 
+本项目展示了如何使用 MCP 构建多种能力集成的应用模块，支持包括 RAG、LangChain、GraphRAG 等模块的快速注册与调用。
 
-# 使用教程
+## 安装方法
 
-## 0_MCP_client_server
-最基础的MCP搭建流程：
-功能：将天气查询功能（调用weather_api查询：https://www.weatherapi.com/）注册到MCP server中
-使用方法：
-1. `cd src/0_MCP_client_server`
-2. 填写.env文件大模型API调用相关参数（openai格式）
-3. 填写server.py文件中weather_url和weather_api
-4. `uv run client.py server.py`
+确保已安装 `pip`，然后运行以下命令：
 
-
-
-## 1_MCP_RAG
-MCP + langchain + RAG
-功能：将RAG作为功能注册到MCP server中，RAG用langchain实现
-使用方法：
-1. cd `src/1_MCP_RAG`
-1. 从huggingface上下载任意embedding模型，填写.env文件中的EMBED_MODEL参数，例如下载qwen-embedding-0.6b模型（https://hf-mirror.com/Qwen/Qwen3-Embedding-0.6B）就填写"qwen-embedding-0.6b"
-2. 填写.env文件大模型API调用相关参数（openai格式）
-3. `uv run rag_client.py rag_server.py`
-
-
-## 2_MCP_GraphRAG
-MCP + GraphRAG
-功能：将RAG作为功能注册到MCP server中，RAG用GraphRAG实现
-1. `cd src\2_MCP_GraphRAG`
-2. 构建GraphRAG知识库（项目中已经给出了示例"src/2_MCP_GraphRAG/doupocangqiong"）
-（1） `mkdir -p rag_text/input`，用于保存待处理的文本文件。将待处理的文本或其他类型的文件放入input目录下。
-（2）`graphrag init --root src/2_MCP_GraphRAG/rag_text/input`，初始化
-（3）修改settings.yaml文件中的几个重要参数，通常而言只需要修改api_base，model，encoding_model
-（4）填写src/2_MCP_GraphRAG/doupocangqiong/.env文件
-3. 填写src/2_MCP_GraphRAG/.env文件大模型API调用相关参数（openai格式）
-4. 修改server.py文件中的PROJECT_DIRECTORY参数
-5. `uv run client.py server.py`
-
-
-
-## 问题
-如果直接运行存在问题，可以先把尝试单独测试server.py是否能正常运行，然后在排查问题。以0_MCP_client_server为例：
-1. 修改代码
-```python
-if __name__ == "__main__":
-    print(asyncio.run(query_weather("shenzhen")))
-    # mcp.run(transport="stdio")
+```bash
+pip install uv
+uv sync
 ```
-2. 运行`uv run server.py`看看是否能正常运行
+
+## 使用教程
+### 📁 0_MCP_client_server
+
+**功能**：将天气查询能力注册到 MCP server 中（使用 weatherapi）
+
+**使用步骤**：
+1. 进入项目目录：
+
+    ```bash
+    cd src/0_MCP_client_server
+    ```
+
+2. 配置 `.env` 文件，填写大模型 API 调用参数（支持 OpenAI 格式）。
+
+3. 编辑 `server.py` 文件，补充 `weather_url` 与 `weather_api`。
+
+4. 运行客户端与服务端：
+
+    ```bash
+    uv run client.py server.py
+    ```
+
+### 📁 1_MCP_RAG
+**功能**：将基于 LangChain 实现的 RAG（检索增强生成）能力注册到 MCP server 中。
+
+**使用步骤**：
+1. 进入目录：
+    ```bash
+    cd src/1_MCP_RAG
+    ```
+
+2. 下载 `HuggingFace` 上的 `embedding` 模型，并填写 `.env` 文件中的 `EMBED_MODEL` 参数。
+
+    例如使用 qwen-embedding-0.6b，则填入：
+
+    ```ini
+    EMBED_MODEL=qwen-embedding-0.6b
+    ```
+
+3. 配置 `.env` 文件的大模型 API 参数（OpenAI 格式）。
+
+4. 启动服务：
+    
+    ```bash
+    uv run rag_client.py rag_server.py
+    ```
+
+### 📁 2_MCP_GraphRAG
+**功能**：将 GraphRAG 实现的 RAG 能力注册到 MCP server 中。
+
+**使用步骤**：
+1. 进入目录：
+
+    ```bash
+    cd src/2_MCP_GraphRAG
+    ```
+
+2. 构建 GraphRAG 知识库（已提供示例项目：src/2_MCP_GraphRAG/doupocangqiong）：
+
+    - 创建输入目录，并将待处理的文本或文档放入该目录。
+
+        ```bash
+        mkdir -p rag_text/input
+        ```
+    
+
+    - 初始化项目：
+
+        ```bash
+        graphrag init --root src/2_MCP_GraphRAG/rag_text/input
+        ```
+
+
+    - 编辑 `settings.yaml` 文件中的核心参数：
+
+        ```ini
+        api_base=
+        model=
+        encoding_model=
+        ```
+
+    - 填写 `src/2_MCP_GraphRAG/doupocangqiong/.env` 文件。
+
+3. 配置 `src/2_MCP_GraphRAG/.env` 文件中大模型 API 参数（OpenAI 格式）。
+
+4. 编辑 `server.py` 文件，确保设置正确的 `PROJECT_DIRECTORY` 路径。
+
+5. 启动服务：
+
+    ```bash
+    uv run client.py server.py
+    ```
+
+### 常见问题排查
+
+若运行过程中遇到问题，建议先单独测试 server.py 是否可正常运行。以 0_MCP_client_server 为例：
+
+✅ 测试示例
+
+1. 修改 server.py：
+
+    ```python
+    if __name__ == "__main__":
+        print(asyncio.run(query_weather("shenzhen")))
+        # mcp.run(transport="stdio") 
+    ```
+
+2. 单独运行 server：
+
+    ```bash
+    uv run server.py
+    ```
