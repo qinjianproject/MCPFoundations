@@ -1,0 +1,1751 @@
+2025-08-06 00:05:49.0647 - INFO - graphrag.cli.index - Logging enabled at /home/qinjian/agent_study/src/3/doupocangqiong/logs/logs.txt
+2025-08-06 00:06:49.0933 - INFO - graphrag.index.validate_config - LLM Config Params Validated
+2025-08-06 00:06:50.0269 - INFO - graphrag.index.validate_config - Embedding LLM Config Params Validated
+2025-08-06 00:06:50.0269 - INFO - graphrag.cli.index - Starting pipeline run. False
+2025-08-06 00:06:50.0271 - INFO - graphrag.cli.index - Using default configuration: {
+    "root_dir": "/home/qinjian/agent_study/src/3/doupocangqiong",
+    "models": {
+        "default_chat_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_chat",
+            "model": "qwen-plus",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "deployment_name": null,
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 25,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        },
+        "default_embedding_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_embedding",
+            "model": "text-embedding-v2",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+            "api_version": null,
+            "deployment_name": null,
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": null,
+            "requests_per_minute": null,
+            "retry_strategy": "native",
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 25,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        }
+    },
+    "input": {
+        "storage": {
+            "type": "file",
+            "base_dir": "/home/qinjian/agent_study/src/3/doupocangqiong/input",
+            "storage_account_blob_url": null,
+            "cosmosdb_account_url": null
+        },
+        "file_type": "text",
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "text_column": "text",
+        "title_column": null,
+        "metadata": null
+    },
+    "chunks": {
+        "size": 200,
+        "overlap": 100,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base",
+        "prepend_metadata": false,
+        "chunk_size_includes_metadata": false
+    },
+    "output": {
+        "type": "file",
+        "base_dir": "/home/qinjian/agent_study/src/3/doupocangqiong/output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "outputs": null,
+    "update_index_output": {
+        "type": "file",
+        "base_dir": "/home/qinjian/agent_study/src/3/doupocangqiong/update_output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "reporting": {
+        "type": "file",
+        "base_dir": "/home/qinjian/agent_study/src/3/doupocangqiong/logs",
+        "storage_account_blob_url": null
+    },
+    "vector_store": {
+        "default_vector_store": {
+            "type": "lancedb",
+            "db_uri": "/home/qinjian/agent_study/src/3/doupocangqiong/output\\lancedb",
+            "url": null,
+            "audience": null,
+            "container_name": "==== REDACTED ====",
+            "database_name": null,
+            "overwrite": true
+        }
+    },
+    "workflows": null,
+    "embed_text": {
+        "model_id": "default_embedding_model",
+        "vector_store_id": "default_vector_store",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "names": [
+            "entity.description",
+            "community.full_content",
+            "text_unit.text"
+        ],
+        "strategy": null
+    },
+    "extract_graph": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_graph.txt",
+        "entity_types": [
+            "organization",
+            "person",
+            "geo",
+            "event"
+        ],
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "summarize_descriptions": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/summarize_descriptions.txt",
+        "max_length": 500,
+        "max_input_tokens": 4000,
+        "strategy": null
+    },
+    "extract_graph_nlp": {
+        "normalize_edge_weights": true,
+        "text_analyzer": {
+            "extractor_type": "regex_english",
+            "model_name": "en_core_web_md",
+            "max_word_length": 15,
+            "word_delimiter": " ",
+            "include_named_entities": true,
+            "exclude_nouns": [
+                "stuff",
+                "thing",
+                "things",
+                "bunch",
+                "bit",
+                "bits",
+                "people",
+                "person",
+                "okay",
+                "hey",
+                "hi",
+                "hello",
+                "laughter",
+                "oh"
+            ],
+            "exclude_entity_tags": [
+                "DATE"
+            ],
+            "exclude_pos_tags": [
+                "DET",
+                "PRON",
+                "INTJ",
+                "X"
+            ],
+            "noun_phrase_tags": [
+                "PROPN",
+                "NOUNS"
+            ],
+            "noun_phrase_grammars": {
+                "PROPN,PROPN": "PROPN",
+                "NOUN,NOUN": "NOUNS",
+                "NOUNS,NOUN": "NOUNS",
+                "ADJ,ADJ": "ADJ",
+                "ADJ,NOUN": "NOUNS"
+            }
+        },
+        "concurrent_requests": 25
+    },
+    "prune_graph": {
+        "min_node_freq": 2,
+        "max_node_freq_std": null,
+        "min_node_degree": 1,
+        "max_node_degree_std": null,
+        "min_edge_weight_pct": 40.0,
+        "remove_ego_nodes": true,
+        "lcc_only": false
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "extract_claims": {
+        "enabled": false,
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_claims.txt",
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "community_reports": {
+        "model_id": "default_chat_model",
+        "graph_prompt": "prompts/community_report_graph.txt",
+        "text_prompt": "prompts/community_report_text.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "umap": {
+        "enabled": false
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "raw_graph": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "text_unit_prop": 0.5,
+        "community_prop": 0.15,
+        "conversation_history_max_turns": 5,
+        "top_k_entities": 10,
+        "top_k_relationships": 10,
+        "max_context_tokens": 12000
+    },
+    "global_search": {
+        "map_prompt": "prompts/global_search_map_system_prompt.txt",
+        "reduce_prompt": "prompts/global_search_reduce_system_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "knowledge_prompt": "prompts/global_search_knowledge_system_prompt.txt",
+        "max_context_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_length": 1000,
+        "reduce_max_length": 2000,
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": "prompts/drift_search_system_prompt.txt",
+        "reduce_prompt": "prompts/drift_search_reduce_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": null,
+        "reduce_temperature": 0,
+        "reduce_max_completion_tokens": null,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0,
+        "local_search_top_p": 1,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": null,
+        "local_search_llm_max_gen_completion_tokens": null
+    },
+    "basic_search": {
+        "prompt": "prompts/basic_search_system_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "k": 10,
+        "max_context_tokens": 12000
+    }
+}
+2025-08-06 00:06:50.0272 - INFO - graphrag.api.index - Initializing indexing pipeline...
+2025-08-06 00:06:50.0272 - INFO - graphrag.index.workflows.factory - Creating pipeline with workflows: ['load_input_documents', 'create_base_text_units', 'create_final_documents', 'extract_graph', 'finalize_graph', 'extract_covariates', 'create_communities', 'create_final_text_units', 'create_community_reports', 'generate_text_embeddings']
+2025-08-06 00:06:50.0273 - INFO - graphrag.storage.file_pipeline_storage - Creating file storage at /home/qinjian/agent_study/src/3/doupocangqiong/input
+2025-08-06 00:06:50.0273 - INFO - graphrag.storage.file_pipeline_storage - Creating file storage at /home/qinjian/agent_study/src/3/doupocangqiong/output
+2025-08-06 00:06:50.0274 - INFO - graphrag.index.run.run_pipeline - Running standard indexing.
+2025-08-06 00:06:50.0276 - INFO - graphrag.index.run.run_pipeline - Executing pipeline...
+2025-08-06 00:06:50.0277 - INFO - graphrag.index.input.factory - loading input from root_dir=/home/qinjian/agent_study/src/3/doupocangqiong/input
+2025-08-06 00:06:50.0277 - INFO - graphrag.index.input.factory - Loading Input InputFileType.text
+2025-08-06 00:06:50.0277 - INFO - graphrag.storage.file_pipeline_storage - search /home/qinjian/agent_study/src/3/doupocangqiong/input for files matching .*\.txt$
+2025-08-06 00:06:50.0281 - INFO - graphrag.index.input.util - Found 1 InputFileType.text files, loading 1
+2025-08-06 00:06:50.0282 - INFO - graphrag.index.input.util - Total number of unfiltered InputFileType.text rows: 1
+2025-08-06 00:06:50.0282 - INFO - graphrag.index.workflows.load_input_documents - Final # of rows loaded: 1
+2025-08-06 00:06:50.0294 - INFO - graphrag.api.index - Workflow load_input_documents completed successfully
+2025-08-06 00:06:50.0303 - INFO - graphrag.index.workflows.create_base_text_units - Workflow started: create_base_text_units
+2025-08-06 00:06:50.0304 - INFO - graphrag.utils.storage - reading table from storage: documents.parquet
+2025-08-06 00:06:50.0321 - INFO - graphrag.index.workflows.create_base_text_units - Starting chunking process for 1 documents
+2025-08-06 00:06:50.0356 - INFO - graphrag.index.workflows.create_base_text_units - chunker progress:  1/1
+2025-08-06 00:06:50.0369 - INFO - graphrag.index.workflows.create_base_text_units - Workflow completed: create_base_text_units
+2025-08-06 00:06:50.0370 - INFO - graphrag.api.index - Workflow create_base_text_units completed successfully
+2025-08-06 00:06:50.0377 - INFO - graphrag.index.workflows.create_final_documents - Workflow started: create_final_documents
+2025-08-06 00:06:50.0377 - INFO - graphrag.utils.storage - reading table from storage: documents.parquet
+2025-08-06 00:06:50.0380 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-08-06 00:06:50.0401 - INFO - graphrag.index.workflows.create_final_documents - Workflow completed: create_final_documents
+2025-08-06 00:06:50.0402 - INFO - graphrag.api.index - Workflow create_final_documents completed successfully
+2025-08-06 00:06:50.0409 - INFO - graphrag.index.workflows.extract_graph - Workflow started: extract_graph
+2025-08-06 00:06:50.0409 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-08-06 00:31:52.0489 - INFO - graphrag.logger.progress - extract graph progress: 1/262
+2025-08-06 00:32:52.0506 - INFO - graphrag.logger.progress - extract graph progress: 2/262
+2025-08-06 00:33:52.0445 - INFO - graphrag.logger.progress - extract graph progress: 3/262
+2025-08-06 00:34:52.0574 - INFO - graphrag.logger.progress - extract graph progress: 4/262
+2025-08-06 00:35:52.0557 - INFO - graphrag.logger.progress - extract graph progress: 5/262
+2025-08-06 00:36:52.0681 - INFO - graphrag.logger.progress - extract graph progress: 6/262
+2025-08-06 00:37:52.0889 - INFO - graphrag.logger.progress - extract graph progress: 7/262
+2025-08-06 00:38:52.0806 - INFO - graphrag.logger.progress - extract graph progress: 8/262
+2025-08-06 00:39:53.0248 - INFO - graphrag.logger.progress - extract graph progress: 9/262
+2025-08-06 00:40:52.0981 - INFO - graphrag.logger.progress - extract graph progress: 10/262
+2025-08-06 00:41:52.0876 - INFO - graphrag.logger.progress - extract graph progress: 11/262
+2025-08-06 00:42:52.0901 - INFO - graphrag.logger.progress - extract graph progress: 12/262
+2025-08-06 00:43:53.0064 - INFO - graphrag.logger.progress - extract graph progress: 13/262
+2025-08-06 00:44:53.0160 - INFO - graphrag.logger.progress - extract graph progress: 14/262
+2025-08-06 00:45:53.0185 - INFO - graphrag.logger.progress - extract graph progress: 15/262
+2025-08-06 00:46:52.0958 - INFO - graphrag.logger.progress - extract graph progress: 16/262
+2025-08-06 00:47:53.0060 - INFO - graphrag.logger.progress - extract graph progress: 17/262
+2025-08-06 00:48:53.0631 - INFO - graphrag.logger.progress - extract graph progress: 18/262
+2025-08-06 00:49:53.0161 - INFO - graphrag.logger.progress - extract graph progress: 19/262
+2025-08-06 00:50:53.0368 - INFO - graphrag.logger.progress - extract graph progress: 20/262
+2025-08-06 00:51:53.0253 - INFO - graphrag.logger.progress - extract graph progress: 21/262
+2025-08-06 00:52:53.0647 - INFO - graphrag.logger.progress - extract graph progress: 22/262
+2025-08-06 00:53:53.0754 - INFO - graphrag.logger.progress - extract graph progress: 23/262
+2025-08-06 00:54:53.0543 - INFO - graphrag.logger.progress - extract graph progress: 24/262
+2025-08-06 00:55:53.0687 - INFO - graphrag.logger.progress - extract graph progress: 25/262
+2025-08-06 01:21:54.0822 - INFO - graphrag.logger.progress - extract graph progress: 26/262
+2025-08-06 01:22:54.0690 - INFO - graphrag.logger.progress - extract graph progress: 27/262
+2025-08-06 01:23:55.0103 - INFO - graphrag.logger.progress - extract graph progress: 28/262
+2025-08-06 01:24:55.0021 - INFO - graphrag.logger.progress - extract graph progress: 29/262
+2025-08-06 01:25:54.0897 - INFO - graphrag.logger.progress - extract graph progress: 30/262
+2025-08-06 01:26:55.0247 - INFO - graphrag.logger.progress - extract graph progress: 31/262
+2025-08-06 01:27:54.0803 - INFO - graphrag.logger.progress - extract graph progress: 32/262
+2025-08-06 01:28:55.0098 - INFO - graphrag.logger.progress - extract graph progress: 33/262
+2025-08-06 01:29:55.0529 - INFO - graphrag.logger.progress - extract graph progress: 34/262
+2025-08-06 01:30:56.0626 - INFO - graphrag.logger.progress - extract graph progress: 35/262
+2025-08-06 01:31:55.0328 - INFO - graphrag.logger.progress - extract graph progress: 36/262
+2025-08-06 01:32:55.0477 - INFO - graphrag.logger.progress - extract graph progress: 37/262
+2025-08-06 01:33:55.0298 - INFO - graphrag.logger.progress - extract graph progress: 38/262
+2025-08-06 01:34:55.0401 - INFO - graphrag.logger.progress - extract graph progress: 39/262
+2025-08-06 01:35:55.0395 - INFO - graphrag.logger.progress - extract graph progress: 40/262
+2025-08-06 01:36:55.0544 - INFO - graphrag.logger.progress - extract graph progress: 41/262
+2025-08-06 01:37:55.0791 - INFO - graphrag.logger.progress - extract graph progress: 42/262
+2025-08-06 01:38:58.0229 - INFO - graphrag.logger.progress - extract graph progress: 43/262
+2025-08-06 01:39:55.0674 - INFO - graphrag.logger.progress - extract graph progress: 44/262
+2025-08-06 01:40:56.0303 - INFO - graphrag.logger.progress - extract graph progress: 45/262
+2025-08-06 01:41:55.0726 - INFO - graphrag.logger.progress - extract graph progress: 46/262
+2025-08-06 01:42:56.0019 - INFO - graphrag.logger.progress - extract graph progress: 47/262
+2025-08-06 01:43:56.0102 - INFO - graphrag.logger.progress - extract graph progress: 48/262
+2025-08-06 01:44:56.0140 - INFO - graphrag.logger.progress - extract graph progress: 49/262
+2025-08-06 01:45:56.0079 - INFO - graphrag.logger.progress - extract graph progress: 50/262
+2025-08-06 02:11:56.0961 - INFO - graphrag.logger.progress - extract graph progress: 51/262
+2025-08-06 02:12:57.0098 - INFO - graphrag.logger.progress - extract graph progress: 52/262
+2025-08-06 02:13:57.0178 - INFO - graphrag.logger.progress - extract graph progress: 53/262
+2025-08-06 02:15:00.0535 - INFO - graphrag.logger.progress - extract graph progress: 54/262
+2025-08-06 02:16:07.0864 - INFO - graphrag.logger.progress - extract graph progress: 55/262
+2025-08-06 02:16:57.0508 - INFO - graphrag.logger.progress - extract graph progress: 56/262
+2025-08-06 02:17:57.0156 - INFO - graphrag.logger.progress - extract graph progress: 57/262
+2025-08-06 02:18:57.0084 - INFO - graphrag.logger.progress - extract graph progress: 58/262
+2025-08-06 02:19:57.0502 - INFO - graphrag.logger.progress - extract graph progress: 59/262
+2025-08-06 02:20:57.0916 - INFO - graphrag.logger.progress - extract graph progress: 60/262
+2025-08-06 02:21:57.0205 - INFO - graphrag.logger.progress - extract graph progress: 61/262
+2025-08-06 02:22:57.0491 - INFO - graphrag.logger.progress - extract graph progress: 62/262
+2025-08-06 02:23:57.0286 - INFO - graphrag.logger.progress - extract graph progress: 63/262
+2025-08-06 02:24:57.0654 - INFO - graphrag.logger.progress - extract graph progress: 64/262
+2025-08-06 02:25:57.0498 - INFO - graphrag.logger.progress - extract graph progress: 65/262
+2025-08-06 02:26:57.0706 - INFO - graphrag.logger.progress - extract graph progress: 66/262
+2025-08-06 02:27:57.0753 - INFO - graphrag.logger.progress - extract graph progress: 67/262
+2025-08-06 02:28:57.0531 - INFO - graphrag.logger.progress - extract graph progress: 68/262
+2025-08-06 02:29:57.0682 - INFO - graphrag.logger.progress - extract graph progress: 69/262
+2025-08-06 02:30:58.0017 - INFO - graphrag.logger.progress - extract graph progress: 70/262
+2025-08-06 02:32:02.0300 - INFO - graphrag.logger.progress - extract graph progress: 71/262
+2025-08-06 02:32:58.0219 - INFO - graphrag.logger.progress - extract graph progress: 72/262
+2025-08-06 02:34:12.0413 - INFO - graphrag.logger.progress - extract graph progress: 73/262
+2025-08-06 02:34:57.0864 - INFO - graphrag.logger.progress - extract graph progress: 74/262
+2025-08-06 02:35:58.0078 - INFO - graphrag.logger.progress - extract graph progress: 75/262
+2025-08-06 03:01:59.0560 - INFO - graphrag.logger.progress - extract graph progress: 76/262
+2025-08-06 03:02:59.0130 - INFO - graphrag.logger.progress - extract graph progress: 77/262
+2025-08-06 03:03:59.0060 - INFO - graphrag.logger.progress - extract graph progress: 78/262
+2025-08-06 03:04:59.0236 - INFO - graphrag.logger.progress - extract graph progress: 79/262
+2025-08-06 03:05:59.0249 - INFO - graphrag.logger.progress - extract graph progress: 80/262
+2025-08-06 03:06:59.0256 - INFO - graphrag.logger.progress - extract graph progress: 81/262
+2025-08-06 03:07:59.0489 - INFO - graphrag.logger.progress - extract graph progress: 82/262
+2025-08-06 03:08:59.0459 - INFO - graphrag.logger.progress - extract graph progress: 83/262
+2025-08-06 03:09:59.0452 - INFO - graphrag.logger.progress - extract graph progress: 84/262
+2025-08-06 03:10:59.0550 - INFO - graphrag.logger.progress - extract graph progress: 85/262
+2025-08-06 03:11:59.0563 - INFO - graphrag.logger.progress - extract graph progress: 86/262
+2025-08-06 03:12:59.0806 - INFO - graphrag.logger.progress - extract graph progress: 87/262
+2025-08-06 03:13:59.0840 - INFO - graphrag.logger.progress - extract graph progress: 88/262
+2025-08-06 03:14:59.0873 - INFO - graphrag.logger.progress - extract graph progress: 89/262
+2025-08-06 03:16:00.0065 - INFO - graphrag.logger.progress - extract graph progress: 90/262
+2025-08-06 03:16:59.0826 - INFO - graphrag.logger.progress - extract graph progress: 91/262
+2025-08-06 03:18:00.0123 - INFO - graphrag.logger.progress - extract graph progress: 92/262
+2025-08-06 03:18:59.0981 - INFO - graphrag.logger.progress - extract graph progress: 93/262
+2025-08-06 03:20:00.0281 - INFO - graphrag.logger.progress - extract graph progress: 94/262
+2025-08-06 03:21:00.0236 - INFO - graphrag.logger.progress - extract graph progress: 95/262
+2025-08-06 03:22:00.0218 - INFO - graphrag.logger.progress - extract graph progress: 96/262
+2025-08-06 03:23:00.0367 - INFO - graphrag.logger.progress - extract graph progress: 97/262
+2025-08-06 03:24:00.0212 - INFO - graphrag.logger.progress - extract graph progress: 98/262
+2025-08-06 03:25:00.0504 - INFO - graphrag.logger.progress - extract graph progress: 99/262
+2025-08-06 03:26:03.0744 - INFO - graphrag.logger.progress - extract graph progress: 100/262
+2025-08-06 03:27:00.0026 - ERROR - graphrag.index.operations.extract_graph.graph_extractor - error extracting graph
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-e5f79e67-c732-92be-8ca4-cd5c99088b49', 'request_id': 'e5f79e67-c732-92be-8ca4-cd5c99088b49'}
+2025-08-06 03:27:00.0033 - ERROR - graphrag.index.operations.extract_graph.graph_intelligence_strategy - Entity Extraction Error
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-e5f79e67-c732-92be-8ca4-cd5c99088b49', 'request_id': 'e5f79e67-c732-92be-8ca4-cd5c99088b49'}
+2025-08-06 03:27:00.0037 - INFO - graphrag.logger.progress - extract graph progress: 101/262
+2025-08-06 03:28:00.0042 - ERROR - graphrag.index.operations.extract_graph.graph_extractor - error extracting graph
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-adf77700-a8c3-94dc-ae9d-8349dfa4a6b6', 'request_id': 'adf77700-a8c3-94dc-ae9d-8349dfa4a6b6'}
+2025-08-06 03:28:00.0048 - ERROR - graphrag.index.operations.extract_graph.graph_intelligence_strategy - Entity Extraction Error
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-adf77700-a8c3-94dc-ae9d-8349dfa4a6b6', 'request_id': 'adf77700-a8c3-94dc-ae9d-8349dfa4a6b6'}
+2025-08-06 03:28:00.0052 - INFO - graphrag.logger.progress - extract graph progress: 102/262
+2025-08-06 03:29:00.0111 - ERROR - graphrag.index.operations.extract_graph.graph_extractor - error extracting graph
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-009fd17b-af3f-9bc7-bf3e-24b04cda8c78', 'request_id': '009fd17b-af3f-9bc7-bf3e-24b04cda8c78'}
+2025-08-06 03:29:00.0117 - ERROR - graphrag.index.operations.extract_graph.graph_intelligence_strategy - Entity Extraction Error
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-009fd17b-af3f-9bc7-bf3e-24b04cda8c78', 'request_id': '009fd17b-af3f-9bc7-bf3e-24b04cda8c78'}
+2025-08-06 03:29:00.0120 - INFO - graphrag.logger.progress - extract graph progress: 103/262
+2025-08-06 03:30:00.0209 - ERROR - graphrag.index.operations.extract_graph.graph_extractor - error extracting graph
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-db593797-c33f-9254-9bde-d51612cf8093', 'request_id': 'db593797-c33f-9254-9bde-d51612cf8093'}
+2025-08-06 03:30:00.0215 - ERROR - graphrag.index.operations.extract_graph.graph_intelligence_strategy - Entity Extraction Error
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-db593797-c33f-9254-9bde-d51612cf8093', 'request_id': 'db593797-c33f-9254-9bde-d51612cf8093'}
+2025-08-06 03:30:00.0219 - INFO - graphrag.logger.progress - extract graph progress: 104/262
+2025-08-06 03:31:00.0246 - ERROR - graphrag.index.operations.extract_graph.graph_extractor - error extracting graph
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-2d9ef485-2b6e-9a58-888a-6775c5df84bc', 'request_id': '2d9ef485-2b6e-9a58-888a-6775c5df84bc'}
+2025-08-06 03:31:00.0252 - ERROR - graphrag.index.operations.extract_graph.graph_intelligence_strategy - Entity Extraction Error
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-2d9ef485-2b6e-9a58-888a-6775c5df84bc', 'request_id': '2d9ef485-2b6e-9a58-888a-6775c5df84bc'}
+2025-08-06 03:31:00.0256 - INFO - graphrag.logger.progress - extract graph progress: 105/262
+2025-08-06 03:32:00.0304 - ERROR - graphrag.index.operations.extract_graph.graph_extractor - error extracting graph
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-3e4aefa2-7268-902c-8a1e-1a70ba302e87', 'request_id': '3e4aefa2-7268-902c-8a1e-1a70ba302e87'}
+2025-08-06 03:32:00.0310 - ERROR - graphrag.index.operations.extract_graph.graph_intelligence_strategy - Entity Extraction Error
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-3e4aefa2-7268-902c-8a1e-1a70ba302e87', 'request_id': '3e4aefa2-7268-902c-8a1e-1a70ba302e87'}
+2025-08-06 03:32:00.0314 - INFO - graphrag.logger.progress - extract graph progress: 106/262
+2025-08-06 03:33:00.0369 - ERROR - graphrag.index.operations.extract_graph.graph_extractor - error extracting graph
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-ebc54e38-5115-9097-92f3-5de2fc8710aa', 'request_id': 'ebc54e38-5115-9097-92f3-5de2fc8710aa'}
+2025-08-06 03:33:00.0375 - ERROR - graphrag.index.operations.extract_graph.graph_intelligence_strategy - Entity Extraction Error
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-ebc54e38-5115-9097-92f3-5de2fc8710aa', 'request_id': 'ebc54e38-5115-9097-92f3-5de2fc8710aa'}
+2025-08-06 03:33:00.0379 - INFO - graphrag.logger.progress - extract graph progress: 107/262
+2025-08-06 03:34:00.0437 - ERROR - graphrag.index.operations.extract_graph.graph_extractor - error extracting graph
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-ac1e8a9b-c691-9a62-9634-1d4c6020f352', 'request_id': 'ac1e8a9b-c691-9a62-9634-1d4c6020f352'}
+2025-08-06 03:34:00.0443 - ERROR - graphrag.index.operations.extract_graph.graph_intelligence_strategy - Entity Extraction Error
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-ac1e8a9b-c691-9a62-9634-1d4c6020f352', 'request_id': 'ac1e8a9b-c691-9a62-9634-1d4c6020f352'}
+2025-08-06 03:34:00.0446 - INFO - graphrag.logger.progress - extract graph progress: 108/262
+2025-08-06 03:35:00.0480 - ERROR - graphrag.index.operations.extract_graph.graph_extractor - error extracting graph
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-779d4c8e-14fe-9925-a299-cbac6ff1daa6', 'request_id': '779d4c8e-14fe-9925-a299-cbac6ff1daa6'}
+2025-08-06 03:35:00.0486 - ERROR - graphrag.index.operations.extract_graph.graph_intelligence_strategy - Entity Extraction Error
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-779d4c8e-14fe-9925-a299-cbac6ff1daa6', 'request_id': '779d4c8e-14fe-9925-a299-cbac6ff1daa6'}
+2025-08-06 03:35:00.0490 - INFO - graphrag.logger.progress - extract graph progress: 109/262
+2025-08-06 03:36:00.0563 - ERROR - graphrag.index.operations.extract_graph.graph_extractor - error extracting graph
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-c2784997-f5f1-984c-ab7d-5aa94b8b0fec', 'request_id': 'c2784997-f5f1-984c-ab7d-5aa94b8b0fec'}
+2025-08-06 03:36:00.0569 - ERROR - graphrag.index.operations.extract_graph.graph_intelligence_strategy - Entity Extraction Error
+Traceback (most recent call last):
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/cached.py", line 137, in invoke
+    result = await delegate(prompt, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/services/rate_limiter.py", line 75, in invoke
+    result = await delegate(prompt, **args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/base/base_llm.py", line 126, in _decorator_target
+    output = await self._execute_llm(prompt, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/fnllm/openai/llm/openai_text_chat_llm.py", line 173, in _execute_llm
+    raw_response = await self._client.chat.completions.with_raw_response.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_legacy_response.py", line 381, in wrapped
+    return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2544, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1791, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qinjian/miniconda3/envs/agent_new/lib/python3.12/site-packages/openai/_base_client.py", line 1591, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'code': 'Arrearage', 'param': None, 'message': 'Access denied, please make sure your account is in good standing.', 'type': 'Arrearage'}, 'id': 'chatcmpl-c2784997-f5f1-984c-ab7d-5aa94b8b0fec', 'request_id': 'c2784997-f5f1-984c-ab7d-5aa94b8b0fec'}
+2025-08-06 03:36:00.0573 - INFO - graphrag.logger.progress - extract graph progress: 110/262
+2025-08-06 04:02:02.0533 - INFO - graphrag.logger.progress - extract graph progress: 111/262
+2025-08-06 04:03:02.0631 - INFO - graphrag.logger.progress - extract graph progress: 112/262
+2025-08-06 04:04:02.0510 - INFO - graphrag.logger.progress - extract graph progress: 113/262
+2025-08-06 04:05:02.0699 - INFO - graphrag.logger.progress - extract graph progress: 114/262
+2025-08-06 04:06:02.0537 - INFO - graphrag.logger.progress - extract graph progress: 115/262
+2025-08-06 04:07:02.0674 - INFO - graphrag.logger.progress - extract graph progress: 116/262
+2025-08-06 04:08:06.0631 - INFO - graphrag.logger.progress - extract graph progress: 117/262
+2025-08-06 04:09:03.0916 - INFO - graphrag.logger.progress - extract graph progress: 118/262
+2025-08-06 04:10:03.0222 - INFO - graphrag.logger.progress - extract graph progress: 119/262
+2025-08-06 04:11:03.0003 - INFO - graphrag.logger.progress - extract graph progress: 120/262
+2025-08-06 04:12:03.0044 - INFO - graphrag.logger.progress - extract graph progress: 121/262
+2025-08-06 04:13:03.0176 - INFO - graphrag.logger.progress - extract graph progress: 122/262
+2025-08-06 04:14:03.0015 - INFO - graphrag.logger.progress - extract graph progress: 123/262
+2025-08-06 04:15:03.0187 - INFO - graphrag.logger.progress - extract graph progress: 124/262
+2025-08-06 04:16:03.0235 - INFO - graphrag.logger.progress - extract graph progress: 125/262
+2025-08-06 04:17:14.0889 - INFO - graphrag.logger.progress - extract graph progress: 126/262
+2025-08-06 04:18:08.0097 - INFO - graphrag.logger.progress - extract graph progress: 127/262
+2025-08-06 04:19:03.0375 - INFO - graphrag.logger.progress - extract graph progress: 128/262
+2025-08-06 04:20:03.0482 - INFO - graphrag.logger.progress - extract graph progress: 129/262
+2025-08-06 04:21:03.0495 - INFO - graphrag.logger.progress - extract graph progress: 130/262
+2025-08-06 04:22:06.0577 - INFO - graphrag.logger.progress - extract graph progress: 131/262
+2025-08-06 04:23:03.0716 - INFO - graphrag.logger.progress - extract graph progress: 132/262
+2025-08-06 04:24:03.0797 - INFO - graphrag.logger.progress - extract graph progress: 133/262
+2025-08-06 04:25:04.0270 - INFO - graphrag.logger.progress - extract graph progress: 134/262
+2025-08-06 04:26:03.0865 - INFO - graphrag.logger.progress - extract graph progress: 135/262
+2025-08-06 04:52:05.0185 - INFO - graphrag.logger.progress - extract graph progress: 136/262
+2025-08-06 04:53:05.0552 - INFO - graphrag.logger.progress - extract graph progress: 137/262
+2025-08-06 04:54:05.0344 - INFO - graphrag.logger.progress - extract graph progress: 138/262
+2025-08-06 04:55:05.0423 - INFO - graphrag.logger.progress - extract graph progress: 139/262
+2025-08-06 04:56:05.0403 - INFO - graphrag.logger.progress - extract graph progress: 140/262
+2025-08-06 04:57:05.0441 - INFO - graphrag.logger.progress - extract graph progress: 141/262
+2025-08-06 04:58:05.0698 - INFO - graphrag.logger.progress - extract graph progress: 142/262
+2025-08-06 04:59:05.0717 - INFO - graphrag.logger.progress - extract graph progress: 143/262
+2025-08-06 05:00:05.0793 - INFO - graphrag.logger.progress - extract graph progress: 144/262
+2025-08-06 05:01:05.0918 - INFO - graphrag.logger.progress - extract graph progress: 145/262
+2025-08-06 05:02:05.0878 - INFO - graphrag.logger.progress - extract graph progress: 146/262
+2025-08-06 05:03:05.0801 - INFO - graphrag.logger.progress - extract graph progress: 147/262
+2025-08-06 05:04:06.0054 - INFO - graphrag.logger.progress - extract graph progress: 148/262
+2025-08-06 05:05:06.0162 - INFO - graphrag.logger.progress - extract graph progress: 149/262
+2025-08-06 05:06:05.0905 - INFO - graphrag.logger.progress - extract graph progress: 150/262
+2025-08-06 05:07:06.0032 - INFO - graphrag.logger.progress - extract graph progress: 151/262
+2025-08-06 05:08:06.0303 - INFO - graphrag.logger.progress - extract graph progress: 152/262
+2025-08-06 05:09:06.0007 - INFO - graphrag.logger.progress - extract graph progress: 153/262
+2025-08-06 05:10:06.0198 - INFO - graphrag.logger.progress - extract graph progress: 154/262
+2025-08-06 05:11:06.0143 - INFO - graphrag.logger.progress - extract graph progress: 155/262
+2025-08-06 05:12:06.0546 - INFO - graphrag.logger.progress - extract graph progress: 156/262
+2025-08-06 05:13:06.0748 - INFO - graphrag.logger.progress - extract graph progress: 157/262
+2025-08-06 05:14:06.0632 - INFO - graphrag.logger.progress - extract graph progress: 158/262
+2025-08-06 05:15:19.0259 - INFO - graphrag.logger.progress - extract graph progress: 159/262
+2025-08-06 05:16:06.0547 - INFO - graphrag.logger.progress - extract graph progress: 160/262
+2025-08-06 05:42:07.0653 - INFO - graphrag.logger.progress - extract graph progress: 161/262
+2025-08-06 05:43:07.0717 - INFO - graphrag.logger.progress - extract graph progress: 162/262
+2025-08-06 05:44:07.0730 - INFO - graphrag.logger.progress - extract graph progress: 163/262
+2025-08-06 05:45:07.0837 - INFO - graphrag.logger.progress - extract graph progress: 164/262
+2025-08-06 05:46:07.0909 - INFO - graphrag.logger.progress - extract graph progress: 165/262
+2025-08-06 05:47:08.0042 - INFO - graphrag.logger.progress - extract graph progress: 166/262
+2025-08-06 05:48:08.0052 - INFO - graphrag.logger.progress - extract graph progress: 167/262
+2025-08-06 05:49:08.0181 - INFO - graphrag.logger.progress - extract graph progress: 168/262
+2025-08-06 05:50:08.0544 - INFO - graphrag.logger.progress - extract graph progress: 169/262
+2025-08-06 05:51:08.0116 - INFO - graphrag.logger.progress - extract graph progress: 170/262
+2025-08-06 05:52:08.0318 - INFO - graphrag.logger.progress - extract graph progress: 171/262
+2025-08-06 05:53:08.0138 - INFO - graphrag.logger.progress - extract graph progress: 172/262
+2025-08-06 05:54:08.0348 - INFO - graphrag.logger.progress - extract graph progress: 173/262
+2025-08-06 05:55:08.0573 - INFO - graphrag.logger.progress - extract graph progress: 174/262
+2025-08-06 05:56:08.0370 - INFO - graphrag.logger.progress - extract graph progress: 175/262
+2025-08-06 05:57:08.0576 - INFO - graphrag.logger.progress - extract graph progress: 176/262
+2025-08-06 05:58:09.0383 - INFO - graphrag.logger.progress - extract graph progress: 177/262
+2025-08-06 05:59:08.0908 - INFO - graphrag.logger.progress - extract graph progress: 178/262
+2025-08-06 06:00:08.0537 - INFO - graphrag.logger.progress - extract graph progress: 179/262
+2025-08-06 06:01:08.0720 - INFO - graphrag.logger.progress - extract graph progress: 180/262
+2025-08-06 06:02:08.0903 - INFO - graphrag.logger.progress - extract graph progress: 181/262
+2025-08-06 06:03:08.0869 - INFO - graphrag.logger.progress - extract graph progress: 182/262
+2025-08-06 06:04:08.0677 - INFO - graphrag.logger.progress - extract graph progress: 183/262
+2025-08-06 06:05:08.0738 - INFO - graphrag.logger.progress - extract graph progress: 184/262
+2025-08-06 06:06:08.0759 - INFO - graphrag.logger.progress - extract graph progress: 185/262
+2025-08-06 06:32:10.0229 - INFO - graphrag.logger.progress - extract graph progress: 186/262
+2025-08-06 06:33:10.0401 - INFO - graphrag.logger.progress - extract graph progress: 187/262
+2025-08-06 06:34:10.0530 - INFO - graphrag.logger.progress - extract graph progress: 188/262
+2025-08-06 06:35:10.0762 - INFO - graphrag.logger.progress - extract graph progress: 189/262
+2025-08-06 06:36:10.0580 - INFO - graphrag.logger.progress - extract graph progress: 190/262
+2025-08-06 06:37:10.0741 - INFO - graphrag.logger.progress - extract graph progress: 191/262
+2025-08-06 06:38:10.0602 - INFO - graphrag.logger.progress - extract graph progress: 192/262
+2025-08-06 06:39:10.0825 - INFO - graphrag.logger.progress - extract graph progress: 193/262
+2025-08-06 06:40:13.0721 - INFO - graphrag.logger.progress - extract graph progress: 194/262
+2025-08-06 06:41:10.0774 - INFO - graphrag.logger.progress - extract graph progress: 195/262
+2025-08-06 06:42:14.0547 - INFO - graphrag.logger.progress - extract graph progress: 196/262
+2025-08-06 06:43:10.0806 - INFO - graphrag.logger.progress - extract graph progress: 197/262
+2025-08-06 06:44:11.0137 - INFO - graphrag.logger.progress - extract graph progress: 198/262
+2025-08-06 06:45:10.0900 - INFO - graphrag.logger.progress - extract graph progress: 199/262
+2025-08-06 06:46:11.0028 - INFO - graphrag.logger.progress - extract graph progress: 200/262
+2025-08-06 06:47:11.0300 - INFO - graphrag.logger.progress - extract graph progress: 201/262
+2025-08-06 06:48:11.0410 - INFO - graphrag.logger.progress - extract graph progress: 202/262
+2025-08-06 06:49:12.0302 - INFO - graphrag.logger.progress - extract graph progress: 203/262
+2025-08-06 06:50:11.0156 - INFO - graphrag.logger.progress - extract graph progress: 204/262
+2025-08-06 06:51:11.0582 - INFO - graphrag.logger.progress - extract graph progress: 205/262
+2025-08-06 06:52:11.0747 - INFO - graphrag.logger.progress - extract graph progress: 206/262
+2025-08-06 06:53:11.0559 - INFO - graphrag.logger.progress - extract graph progress: 207/262
+2025-08-06 06:54:11.0497 - INFO - graphrag.logger.progress - extract graph progress: 208/262
+2025-08-06 06:55:11.0599 - INFO - graphrag.logger.progress - extract graph progress: 209/262
+2025-08-06 06:56:11.0827 - INFO - graphrag.logger.progress - extract graph progress: 210/262
+2025-08-06 07:22:12.0855 - INFO - graphrag.logger.progress - extract graph progress: 211/262
+2025-08-06 07:23:13.0395 - INFO - graphrag.logger.progress - extract graph progress: 212/262
+2025-08-06 07:24:12.0991 - INFO - graphrag.logger.progress - extract graph progress: 213/262
+2025-08-06 07:25:13.0043 - INFO - graphrag.logger.progress - extract graph progress: 214/262
+2025-08-06 07:26:13.0363 - INFO - graphrag.logger.progress - extract graph progress: 215/262
+2025-08-06 07:27:13.0178 - INFO - graphrag.logger.progress - extract graph progress: 216/262
+2025-08-06 07:28:13.0161 - INFO - graphrag.logger.progress - extract graph progress: 217/262
+2025-08-06 07:29:13.0496 - INFO - graphrag.logger.progress - extract graph progress: 218/262
+2025-08-06 07:30:13.0320 - INFO - graphrag.logger.progress - extract graph progress: 219/262
+2025-08-06 07:31:13.0367 - INFO - graphrag.logger.progress - extract graph progress: 220/262
+2025-08-06 07:32:13.0410 - INFO - graphrag.logger.progress - extract graph progress: 221/262
+2025-08-06 07:33:13.0804 - INFO - graphrag.logger.progress - extract graph progress: 222/262
+2025-08-06 07:34:13.0576 - INFO - graphrag.logger.progress - extract graph progress: 223/262
+2025-08-06 07:35:13.0697 - INFO - graphrag.logger.progress - extract graph progress: 224/262
+2025-08-06 07:36:13.0820 - INFO - graphrag.logger.progress - extract graph progress: 225/262
+2025-08-06 07:37:13.0917 - INFO - graphrag.logger.progress - extract graph progress: 226/262
+2025-08-06 07:38:13.0707 - INFO - graphrag.logger.progress - extract graph progress: 227/262
+2025-08-06 07:39:16.0769 - INFO - graphrag.logger.progress - extract graph progress: 228/262
+2025-08-06 07:40:13.0886 - INFO - graphrag.logger.progress - extract graph progress: 229/262
+2025-08-06 07:41:14.0117 - INFO - graphrag.logger.progress - extract graph progress: 230/262
+2025-08-06 07:42:14.0062 - INFO - graphrag.logger.progress - extract graph progress: 231/262
+2025-08-06 07:43:14.0067 - INFO - graphrag.logger.progress - extract graph progress: 232/262
+2025-08-06 07:44:14.0169 - INFO - graphrag.logger.progress - extract graph progress: 233/262
+2025-08-06 07:45:14.0124 - INFO - graphrag.logger.progress - extract graph progress: 234/262
+2025-08-06 07:46:14.0213 - INFO - graphrag.logger.progress - extract graph progress: 235/262
+2025-08-06 08:12:16.0071 - INFO - graphrag.logger.progress - extract graph progress: 236/262
+2025-08-06 08:13:16.0110 - INFO - graphrag.logger.progress - extract graph progress: 237/262
+2025-08-06 08:14:16.0035 - INFO - graphrag.logger.progress - extract graph progress: 238/262
+2025-08-06 08:15:16.0172 - INFO - graphrag.logger.progress - extract graph progress: 239/262
+2025-08-06 08:16:16.0539 - INFO - graphrag.logger.progress - extract graph progress: 240/262
+2025-08-06 08:17:15.0876 - INFO - graphrag.logger.progress - extract graph progress: 241/262
+2025-08-06 08:18:16.0209 - INFO - graphrag.logger.progress - extract graph progress: 242/262
+2025-08-06 08:19:16.0188 - INFO - graphrag.logger.progress - extract graph progress: 243/262
+2025-08-06 08:20:16.0532 - INFO - graphrag.logger.progress - extract graph progress: 244/262
+2025-08-06 08:21:16.0407 - INFO - graphrag.logger.progress - extract graph progress: 245/262
+2025-08-06 08:22:16.0275 - INFO - graphrag.logger.progress - extract graph progress: 246/262
+2025-08-06 08:23:21.0872 - INFO - graphrag.logger.progress - extract graph progress: 247/262
+2025-08-06 08:24:16.0797 - INFO - graphrag.logger.progress - extract graph progress: 248/262
+2025-08-06 08:25:16.0498 - INFO - graphrag.logger.progress - extract graph progress: 249/262
+2025-08-06 08:26:23.0987 - INFO - graphrag.logger.progress - extract graph progress: 250/262
+2025-08-06 08:27:16.0500 - INFO - graphrag.logger.progress - extract graph progress: 251/262
+2025-08-06 08:28:17.0312 - INFO - graphrag.logger.progress - extract graph progress: 252/262
+2025-08-06 08:29:16.0562 - INFO - graphrag.logger.progress - extract graph progress: 253/262
+2025-08-06 08:30:17.0968 - INFO - graphrag.logger.progress - extract graph progress: 254/262
+2025-08-06 08:31:16.0850 - INFO - graphrag.logger.progress - extract graph progress: 255/262
+2025-08-06 08:32:17.0178 - INFO - graphrag.logger.progress - extract graph progress: 256/262
+2025-08-06 08:33:16.0750 - INFO - graphrag.logger.progress - extract graph progress: 257/262
+2025-08-06 08:34:16.0962 - INFO - graphrag.logger.progress - extract graph progress: 258/262
+2025-08-06 08:35:32.0208 - INFO - graphrag.logger.progress - extract graph progress: 259/262
+2025-08-06 08:36:17.0032 - INFO - graphrag.logger.progress - extract graph progress: 260/262
+2025-08-06 08:39:17.0105 - INFO - graphrag.logger.progress - extract graph progress: 261/262
+2025-08-06 08:40:17.0019 - INFO - graphrag.logger.progress - extract graph progress: 262/262
+2025-08-06 08:40:17.0268 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 1/133
+2025-08-06 08:40:17.0269 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 2/133
+2025-08-06 08:40:17.0269 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 3/133
+2025-08-06 08:40:17.0269 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 4/133
+2025-08-06 08:40:17.0269 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 5/133
+2025-08-06 08:40:17.0269 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 6/133
+2025-08-06 08:40:17.0269 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 7/133
+2025-08-06 08:40:17.0269 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 8/133
+2025-08-06 08:40:17.0270 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 9/133
+2025-08-06 08:40:17.0270 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 10/133
+2025-08-06 08:40:17.0271 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 11/133
+2025-08-06 08:40:17.0271 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 12/133
+2025-08-06 08:40:17.0271 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 13/133
+2025-08-06 08:40:17.0271 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 14/133
+2025-08-06 08:40:17.0271 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 15/133
+2025-08-06 08:40:17.0271 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 16/133
+2025-08-06 08:40:17.0271 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 17/133
+2025-08-06 08:40:17.0271 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 18/133
+2025-08-06 08:40:17.0271 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 19/133
+2025-08-06 08:40:17.0272 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 20/133
+2025-08-06 08:40:17.0272 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 21/133
+2025-08-06 08:40:17.0272 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 22/133
+2025-08-06 08:40:17.0273 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 23/133
+2025-08-06 08:40:17.0273 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 24/133
+2025-08-06 08:40:17.0273 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 25/133
+2025-08-06 08:40:17.0273 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 26/133
+2025-08-06 08:40:17.0273 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 27/133
+2025-08-06 08:40:17.0273 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 28/133
+2025-08-06 08:40:17.0273 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 29/133
+2025-08-06 08:40:17.0273 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 30/133
+2025-08-06 08:40:17.0273 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 31/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 32/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 33/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 34/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 35/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 36/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 37/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 38/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 39/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 40/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 41/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 42/133
+2025-08-06 08:40:17.0274 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 43/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 44/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 45/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 46/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 47/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 48/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 49/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 50/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 51/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 52/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 53/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 54/133
+2025-08-06 08:40:17.0275 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 55/133
+2025-08-06 08:40:17.0276 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 56/133
+2025-08-06 08:40:17.0276 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 57/133
+2025-08-06 08:40:17.0276 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 58/133
+2025-08-06 08:40:17.0276 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 59/133
+2025-08-06 08:40:17.0276 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 60/133
+2025-08-06 08:40:17.0276 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 61/133
+2025-08-06 08:45:17.0520 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 62/133
+2025-08-06 08:46:17.0580 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 63/133
+2025-08-06 08:47:17.0641 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 64/133
+2025-08-06 08:48:17.0702 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 65/133
+2025-08-06 08:49:17.0763 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 66/133
+2025-08-06 08:49:17.0766 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 67/133
+2025-08-06 08:49:17.0767 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 68/133
+2025-08-06 08:49:17.0767 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 69/133
+2025-08-06 08:49:17.0767 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 70/133
+2025-08-06 08:49:17.0768 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 71/133
+2025-08-06 08:49:17.0768 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 72/133
+2025-08-06 08:49:17.0769 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 73/133
+2025-08-06 08:49:17.0769 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 74/133
+2025-08-06 08:49:17.0769 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 75/133
+2025-08-06 08:49:17.0770 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 76/133
+2025-08-06 08:49:17.0770 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 77/133
+2025-08-06 08:49:17.0770 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 78/133
+2025-08-06 08:49:17.0771 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 79/133
+2025-08-06 08:49:17.0771 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 80/133
+2025-08-06 08:49:17.0771 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 81/133
+2025-08-06 08:49:17.0772 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 82/133
+2025-08-06 08:49:17.0772 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 83/133
+2025-08-06 08:49:17.0772 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 84/133
+2025-08-06 08:49:17.0773 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 85/133
+2025-08-06 08:49:17.0773 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 86/133
+2025-08-06 08:49:17.0773 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 87/133
+2025-08-06 08:49:17.0774 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 88/133
+2025-08-06 08:49:17.0774 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 89/133
+2025-08-06 08:49:17.0775 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 90/133
+2025-08-06 08:49:17.0775 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 91/133
+2025-08-06 08:49:17.0775 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 92/133
+2025-08-06 08:49:17.0776 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 93/133
+2025-08-06 08:49:17.0776 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 94/133
+2025-08-06 08:49:17.0776 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 95/133
+2025-08-06 08:49:17.0777 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 96/133
+2025-08-06 08:49:17.0777 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 97/133
+2025-08-06 08:49:17.0777 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 98/133
+2025-08-06 08:49:17.0778 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 99/133
+2025-08-06 08:49:17.0778 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 100/133
+2025-08-06 08:49:17.0778 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 101/133
+2025-08-06 08:49:17.0779 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 102/133
+2025-08-06 08:49:17.0779 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 103/133
+2025-08-06 08:49:17.0779 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 104/133
+2025-08-06 08:49:17.0780 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 105/133
+2025-08-06 08:49:17.0780 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 106/133
+2025-08-06 08:49:17.0780 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 107/133
+2025-08-06 08:49:17.0781 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 108/133
+2025-08-06 08:49:17.0781 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 109/133
+2025-08-06 08:49:17.0781 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 110/133
+2025-08-06 08:49:17.0782 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 111/133
+2025-08-06 08:49:17.0782 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 112/133
+2025-08-06 08:49:17.0782 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 113/133
+2025-08-06 08:49:17.0783 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 114/133
+2025-08-06 08:49:17.0783 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 115/133
+2025-08-06 08:49:17.0783 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 116/133
+2025-08-06 08:49:17.0784 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 117/133
+2025-08-06 08:49:17.0784 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 118/133
+2025-08-06 08:49:17.0784 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 119/133
+2025-08-06 08:49:17.0785 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 120/133
+2025-08-06 08:49:17.0785 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 121/133
+2025-08-06 08:49:17.0785 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 122/133
+2025-08-06 08:49:17.0786 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 123/133
+2025-08-06 08:49:17.0786 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 124/133
+2025-08-06 08:49:17.0786 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 125/133
+2025-08-06 08:49:17.0786 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 126/133
+2025-08-06 08:49:17.0787 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 127/133
+2025-08-06 08:49:17.0787 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 128/133
+2025-08-06 08:49:17.0787 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 129/133
+2025-08-06 08:49:17.0788 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 130/133
+2025-08-06 08:49:17.0788 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 131/133
+2025-08-06 08:49:17.0788 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 132/133
+2025-08-06 08:49:17.0789 - INFO - graphrag.logger.progress - Summarize entity/relationship description progress: 133/133
+2025-08-06 08:49:17.0817 - INFO - graphrag.index.workflows.extract_graph - Workflow completed: extract_graph
+2025-08-06 08:49:17.0817 - INFO - graphrag.api.index - Workflow extract_graph completed successfully
+2025-08-06 08:49:17.0855 - INFO - graphrag.index.workflows.finalize_graph - Workflow started: finalize_graph
+2025-08-06 08:49:17.0856 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-08-06 08:49:17.0865 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-08-06 08:49:17.0914 - INFO - graphrag.index.workflows.finalize_graph - Workflow completed: finalize_graph
+2025-08-06 08:49:17.0914 - INFO - graphrag.api.index - Workflow finalize_graph completed successfully
+2025-08-06 08:49:17.0940 - INFO - graphrag.index.workflows.extract_covariates - Workflow started: extract_covariates
+2025-08-06 08:49:17.0941 - INFO - graphrag.index.workflows.extract_covariates - Workflow completed: extract_covariates
+2025-08-06 08:49:17.0941 - INFO - graphrag.api.index - Workflow extract_covariates completed successfully
+2025-08-06 08:49:17.0941 - INFO - graphrag.index.workflows.create_communities - Workflow started: create_communities
+2025-08-06 08:49:17.0941 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-08-06 08:49:17.0948 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-08-06 08:49:18.0003 - INFO - graphrag.index.workflows.create_communities - Workflow completed: create_communities
+2025-08-06 08:49:18.0003 - INFO - graphrag.api.index - Workflow create_communities completed successfully
+2025-08-06 08:49:18.0016 - INFO - graphrag.index.workflows.create_final_text_units - Workflow started: create_final_text_units
+2025-08-06 08:49:18.0017 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-08-06 08:49:18.0023 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-08-06 08:49:18.0028 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-08-06 08:49:18.0061 - INFO - graphrag.index.workflows.create_final_text_units - Workflow completed: create_final_text_units
+2025-08-06 08:49:18.0061 - INFO - graphrag.api.index - Workflow create_final_text_units completed successfully
+2025-08-06 08:49:18.0071 - INFO - graphrag.index.workflows.create_community_reports - Workflow started: create_community_reports
+2025-08-06 08:49:18.0071 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-08-06 08:49:18.0076 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-08-06 08:49:18.0081 - INFO - graphrag.utils.storage - reading table from storage: communities.parquet
+2025-08-06 08:49:18.0097 - INFO - graphrag.index.operations.summarize_communities.graph_context.context_builder - Number of nodes at level=0 => 17
+2025-08-06 08:50:38.0544 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 1/5
+2025-08-06 08:51:41.0436 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 2/5
+2025-08-06 08:53:45.0240 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 3/5
+2025-08-06 08:54:18.0375 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 4/5
+2025-08-06 08:55:18.0436 - INFO - graphrag.logger.progress - level 0 summarize communities progress: 5/5
+2025-08-06 08:55:18.0458 - INFO - graphrag.index.workflows.create_community_reports - Workflow completed: create_community_reports
+2025-08-06 08:55:18.0459 - INFO - graphrag.api.index - Workflow create_community_reports completed successfully
+2025-08-06 08:55:18.0504 - INFO - graphrag.index.workflows.generate_text_embeddings - Workflow started: generate_text_embeddings
+2025-08-06 08:55:18.0505 - INFO - graphrag.utils.storage - reading table from storage: documents.parquet
+2025-08-06 08:55:18.0512 - INFO - graphrag.utils.storage - reading table from storage: relationships.parquet
+2025-08-06 08:55:18.0520 - INFO - graphrag.utils.storage - reading table from storage: text_units.parquet
+2025-08-06 08:55:18.0530 - INFO - graphrag.utils.storage - reading table from storage: entities.parquet
+2025-08-06 08:55:18.0538 - INFO - graphrag.utils.storage - reading table from storage: community_reports.parquet
+2025-08-06 08:55:18.0559 - INFO - graphrag.index.workflows.generate_text_embeddings - Creating embeddings
+2025-08-06 08:55:18.0559 - INFO - graphrag.index.operations.embed_text.embed_text - using vector store lancedb with container_name default for embedding entity.description: default-entity-description
+2025-08-06 08:55:18.0574 - INFO - graphrag.index.operations.embed_text.embed_text - uploading text embeddings batch 1/1 of size 500 to vector store
+2025-08-06 08:55:18.0643 - INFO - graphrag.index.operations.embed_text.strategies.openai - embedding 64 inputs via 64 snippets using 4 batches. max_batch_size=16, batch_max_tokens=8191
+2025-08-06 08:55:19.0331 - INFO - graphrag.logger.progress - generate embeddings progress: 1/4
+2025-08-06 08:55:19.0366 - INFO - graphrag.logger.progress - generate embeddings progress: 2/4
+2025-08-06 08:55:19.0391 - INFO - graphrag.logger.progress - generate embeddings progress: 3/4
+2025-08-06 08:55:19.0394 - INFO - graphrag.logger.progress - generate embeddings progress: 4/4
+2025-08-06 08:55:19.0416 - INFO - graphrag.index.operations.embed_text.embed_text - using vector store lancedb with container_name default for embedding community.full_content: default-community-full_content
+2025-08-06 08:55:19.0417 - INFO - graphrag.index.operations.embed_text.embed_text - uploading text embeddings batch 1/1 of size 500 to vector store
+2025-08-06 08:55:19.0421 - INFO - graphrag.index.operations.embed_text.strategies.openai - embedding 5 inputs via 5 snippets using 1 batches. max_batch_size=16, batch_max_tokens=8191
+2025-08-06 08:55:19.0785 - INFO - graphrag.logger.progress - generate embeddings progress: 1/1
+2025-08-06 08:55:19.0791 - INFO - graphrag.index.operations.embed_text.embed_text - using vector store lancedb with container_name default for embedding text_unit.text: default-text_unit-text
+2025-08-06 08:55:19.0793 - INFO - graphrag.index.operations.embed_text.embed_text - uploading text embeddings batch 1/1 of size 500 to vector store
+2025-08-06 08:55:19.0821 - INFO - graphrag.index.operations.embed_text.strategies.openai - embedding 262 inputs via 262 snippets using 17 batches. max_batch_size=16, batch_max_tokens=8191
+2025-08-06 08:55:20.0301 - INFO - graphrag.logger.progress - generate embeddings progress: 1/17
+2025-08-06 08:55:20.0625 - INFO - graphrag.logger.progress - generate embeddings progress: 2/17
+2025-08-06 08:55:20.0659 - INFO - graphrag.logger.progress - generate embeddings progress: 3/17
+2025-08-06 08:55:20.0661 - INFO - graphrag.logger.progress - generate embeddings progress: 4/17
+2025-08-06 08:55:20.0662 - INFO - graphrag.logger.progress - generate embeddings progress: 5/17
+2025-08-06 08:55:20.0894 - INFO - graphrag.logger.progress - generate embeddings progress: 6/17
+2025-08-06 08:55:20.0896 - INFO - graphrag.logger.progress - generate embeddings progress: 7/17
+2025-08-06 08:55:20.0897 - INFO - graphrag.logger.progress - generate embeddings progress: 8/17
+2025-08-06 08:55:20.0898 - INFO - graphrag.logger.progress - generate embeddings progress: 9/17
+2025-08-06 08:55:20.0900 - INFO - graphrag.logger.progress - generate embeddings progress: 10/17
+2025-08-06 08:55:20.0939 - INFO - graphrag.logger.progress - generate embeddings progress: 11/17
+2025-08-06 08:55:20.0941 - INFO - graphrag.logger.progress - generate embeddings progress: 12/17
+2025-08-06 08:55:20.0943 - INFO - graphrag.logger.progress - generate embeddings progress: 13/17
+2025-08-06 08:55:20.0946 - INFO - graphrag.logger.progress - generate embeddings progress: 14/17
+2025-08-06 08:55:20.0949 - INFO - graphrag.logger.progress - generate embeddings progress: 15/17
+2025-08-06 08:55:20.0950 - INFO - graphrag.logger.progress - generate embeddings progress: 16/17
+2025-08-06 08:55:20.0952 - INFO - graphrag.logger.progress - generate embeddings progress: 17/17
+2025-08-06 08:55:20.0989 - INFO - graphrag.index.workflows.generate_text_embeddings - Workflow completed: generate_text_embeddings
+2025-08-06 08:55:20.0990 - INFO - graphrag.api.index - Workflow generate_text_embeddings completed successfully
+2025-08-06 08:55:21.0012 - INFO - graphrag.index.run.run_pipeline - Indexing pipeline complete.
+2025-08-06 08:55:21.0016 - INFO - graphrag.cli.index - All workflows completed successfully.
